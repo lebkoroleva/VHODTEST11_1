@@ -234,11 +234,6 @@
             display: inline-block;
         }
 
-        .doodle-icon {
-            display: inline-block;
-            margin-right: 8px;
-        }
-
         .note {
             font-family: 'Patrick Hand', cursive;
             font-size: 0.9em;
@@ -261,7 +256,7 @@
     </header>
 
     <form id="quiz-form">
-        <!-- Задание 1 (было 1) -->
+        <!-- Задание 1 -->
         <div class="task-card" id="task-1">
             <div class="task-header">
                 <div class="task-number">1</div>
@@ -276,7 +271,7 @@
             </div>
         </div>
 
-        <!-- Задание 2 (было 2) -->
+        <!-- Задание 2 -->
         <div class="task-card" id="task-2">
             <div class="task-header">
                 <div class="task-number">2</div>
@@ -295,14 +290,14 @@
             </div>
         </div>
 
-        <!-- Задание 3 (было 3) -->
+        <!-- Задание 3 -->
         <div class="task-card" id="task-3">
             <div class="task-header">
                 <div class="task-number">3</div>
                 <div class="task-title">Базы данных</div>
             </div>
             <div class="task-text">
-                <a href="3.xls" class="file-link" download>📥 Скачать файл 3.xls</a><br>
+                <a href="https://raw.githubusercontent.com/lebkoroleva/VHODTEST11_1/main/3.xlsx" class="file-link" download>📥 Скачать файл 3.xlsx</a><br>
                 В файле приведен фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трех таблиц. Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение июня 2023 г., а также информацию о проданных товарах.<br>
                 Определите общую стоимость проданной Квасы Местной, имеющейся в магазинах Октябрьского района, за период с 1 по 8 июня включительно.
             </div>
@@ -312,7 +307,7 @@
             </div>
         </div>
 
-        <!-- Задание 4 (было 4) -->
+        <!-- Задание 4 -->
         <div class="task-card" id="task-4">
             <div class="task-header">
                 <div class="task-number">4</div>
@@ -327,7 +322,7 @@
             </div>
         </div>
 
-        <!-- Задание 5 (было 6) -->
+        <!-- Задание 5 -->
         <div class="task-card" id="task-5">
             <div class="task-header">
                 <div class="task-number">5</div>
@@ -342,14 +337,14 @@
             </div>
         </div>
 
-        <!-- Задание 6 (было 8) -->
+        <!-- Задание 6 -->
         <div class="task-card" id="task-6">
             <div class="task-header">
                 <div class="task-number">6</div>
                 <div class="task-title">Электронные таблицы</div>
             </div>
             <div class="task-text">
-                <a href="8.xls" class="file-link" download>📥 Скачать файл 8.xls</a><br>
+                <a href="https://raw.githubusercontent.com/lebkoroleva/VHODTEST11_1/main/8.xlsx" class="file-link" download>📥 Скачать файл 8.xlsx</a><br>
                 В файле электронной таблицы в каждой строке содержатся пять натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:<br>
                 - разность максимального и минимального чисел не более 20;<br>
                 - произведение трех других чисел не более 250.
@@ -361,7 +356,7 @@
             </div>
         </div>
 
-        <!-- Задание 7 (было 9) -->
+        <!-- Задание 7 -->
         <div class="task-card" id="task-7">
             <div class="task-header">
                 <div class="task-number">7</div>
@@ -385,7 +380,7 @@
             </div>
         </div>
 
-        <!-- Задание 8 (было 10) -->
+        <!-- Задание 8 -->
         <div class="task-card" id="task-8">
             <div class="task-header">
                 <div class="task-number">8</div>
@@ -402,14 +397,14 @@
             </div>
         </div>
 
-        <!-- Задание 9 (было 11) -->
+        <!-- Задание 9 -->
         <div class="task-card" id="task-9">
             <div class="task-header">
                 <div class="task-number">9</div>
                 <div class="task-title">Обработка числовых последовательностей</div>
             </div>
             <div class="task-text">
-                <a href="112.txt" class="file-link" download>📥 Скачать файл 112.txt</a><br>
+                <a href="https://raw.githubusercontent.com/lebkoroleva/VHODTEST11_1/main/112.txt" class="file-link" download>📥 Скачать файл 112.txt</a><br>
                 В файле содержится последовательность целых чисел. Элементы последовательности могут принимать целые значения от 0 до 100 000 включительно. Пусть N — минимальное число в последовательности, оканчивающееся на 17. Определите количество пар элементов последовательности, в которых оба числа кратны N. В ответе запишите количество найденных пар, затем максимальную из сумм элементов таких пар.
             </div>
             <div class="input-group">
@@ -426,17 +421,17 @@
 </div>
 
 <script>
-    // Ключ ответов (перенумерован для 9 заданий)
+    // Ключ ответов (9 заданий)
     const answers = {
-        1: "13",        // было задание 1
-        2: "26",        // было задание 2
-        3: "19950",     // было задание 3
-        4: "256",       // было задание 4
-        5: "64",        // было задание 6
-        6: null,        // было задание 8 (ответа нет)
-        7: "81",        // было задание 9
-        8: "55",        // было задание 10
-        9: "7991"       // было задание 11
+        1: "13",
+        2: "26",
+        3: "19950",
+        4: "256",
+        5: "64",
+        6: null,
+        7: "81",
+        8: "55",
+        9: "7991"
     };
 
     function checkAnswers() {
