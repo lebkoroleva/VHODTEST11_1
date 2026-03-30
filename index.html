@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вариант 1 - Информатика</title>
+    <style>
+        :root {
+            --navy: #0F1A2E;
+            --purple: #3C2E54;
+            --steel: #5D6C83;
+            --graphite: #1C1C1C;
+            --white: #FFFFFF;
+            --success: #27ae60;
+            --error: #c0392b;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Segoe+UI&display=swap');
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white);
+            background-image: 
+                linear-gradient(var(--steel) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, var(--steel) 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            background-position: -0.5px -0.5px;
+            color: var(--graphite);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--white);
+            border: 3px solid var(--navy);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            box-shadow: 5px 5px 0px var(--steel);
+        }
+
+        h1 {
+            font-family: 'Patrick Hand', cursive;
+            color: var(--navy);
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-family: 'Patrick Hand', cursive;
+            color: var(--purple);
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .task-card {
+            background: var(--white);
+            border: 3px solid var(--navy);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 5px 5px 0px var(--steel);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(93, 108, 131, 0.05) 10px,
+                rgba(93, 108, 131, 0.05) 20px
+            );
+            pointer-events: none;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed var(--steel);
+            padding-bottom: 10px;
+        }
+
+        .task-number {
+            font-family: 'Patrick Hand', cursive;
+            background: var(--navy);
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            border: 2px solid var(--graphite);
+            flex-shrink: 0;
+        }
+
+        .task-title {
+            font-family: 'Patrick Hand', cursive;
+            font-weight: bold;
+            font-size: 1.3em;
+            color: var(--purple);
+        }
+
+        .task-text {
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-link {
+            display: inline-block;
+            margin: 10px 0;
+            color: var(--white);
+            background: var(--purple);
+            text-decoration: none;
+            font-family: 'Patrick Hand', cursive;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            border: 2px solid var(--graphite);
+            transition: all 0.3s;
+        }
+
+        .file-link:hover {
+            background: var(--navy);
+            transform: translate(-2px, -2px);
+            box-shadow: 3px 3px 0px var(--steel);
+        }
+
+        .input-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 10px 15px;
+            border: 2px solid var(--steel);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            flex-grow: 1;
+            font-size: 16px;
+            font-family: 'Patrick Hand', cursive;
+            background: var(--white);
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--purple);
+            box-shadow: 3px 3px 0px var(--steel);
+        }
+
+        input.correct {
+            border-color: var(--success);
+            background-color: #e8f8f5;
+        }
+
+        input.incorrect {
+            border-color: var(--error);
+            background-color: #fdedec;
+        }
+
+        .feedback {
+            font-family: 'Patrick Hand', cursive;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 100px;
+        }
+
+        .feedback.success { color: var(--success); }
+        .feedback.error { color: var(--error); }
+
+        .controls {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        button {
+            font-family: 'Patrick Hand', cursive;
+            background: var(--navy);
+            color: var(--white);
+            border: 3px solid var(--graphite);
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 5px 5px 0px var(--steel);
+        }
+
+        button:hover {
+            background: var(--purple);
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0px var(--steel);
+        }
+
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px var(--steel);
+        }
+
+        #result-summary {
+            margin-top: 25px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 20px;
+            background: var(--white);
+            border: 3px solid var(--navy);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            display: inline-block;
+        }
+
+        .doodle-icon {
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .note {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9em;
+            color: var(--steel);
+            background: rgba(93, 108, 131, 0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 8px;
+            border: 1px dashed var(--steel);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>✏️ Вариант 1</h1>
+        <div class="subtitle">Информатика • 9 заданий • Автопроверка</div>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Задание 1 (было 1) -->
+        <div class="task-card" id="task-1">
+            <div class="task-header">
+                <div class="task-number">1</div>
+                <div class="task-title">Кодирование информации</div>
+            </div>
+            <div class="task-text">
+                По каналу связи передаются сообщения, содержащие только семь букв: А, Б, О, С, К, Р, Т. Для передачи используется двоичный код, удовлетворяющий условию Фано. Кодовые слова для некоторых букв известны: К-10, Р-01, Б-111. Какое наименьшее количество двоичных знаков потребуется для кодирования слова СТОПОР?
+            </div>
+            <div class="input-group">
+                <input type="text" data-id="1" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 2 (было 2) -->
+        <div class="task-card" id="task-2">
+            <div class="task-header">
+                <div class="task-number">2</div>
+                <div class="task-title">Алгоритмы</div>
+            </div>
+            <div class="task-text">
+                На вход алгоритма подается натуральное число N. Алгоритм строит по нему новое число R следующим образом:<br>
+                1. Строится двоичная запись числа N.<br>
+                2. К этой записи дописывается справа 1, если в двоичном коде числа N было четное число единиц, и 0, если нечетное.<br>
+                3. К полученному результату дописывается справа 0, если в полученном двоичном коде было четное число единиц, и 1, если нечетное.<br>
+                Укажите минимальное число N, после обработки которого с помощью этого алгоритма получается число, большее 104.
+            </div>
+            <div class="input-group">
+                <input type="number" data-id="2" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 3 (было 3) -->
+        <div class="task-card" id="task-3">
+            <div class="task-header">
+                <div class="task-number">3</div>
+                <div class="task-title">Базы данных</div>
+            </div>
+            <div class="task-text">
+                <a href="3.xls" class="file-link" download>📥 Скачать файл 3.xls</a><br>
+                В файле приведен фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трех таблиц. Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение июня 2023 г., а также информацию о проданных товарах.<br>
+                Определите общую стоимость проданной Квасы Местной, имеющейся в магазинах Октябрьского района, за период с 1 по 8 июня включительно.
+            </div>
+            <div class="input-group">
+                <input type="number" data-id="3" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 4 (было 4) -->
+        <div class="task-card" id="task-4">
+            <div class="task-header">
+                <div class="task-number">4</div>
+                <div class="task-title">Графика и память</div>
+            </div>
+            <div class="task-text">
+                Изображения размером 3x4 дюйма сканируются с разрешением 400 ppi и использованием 216 цветов. Заголовок файла занимает 6 Кбайт. Для хранения таких изображений выделено 939 Мбайт памяти. Сколько изображений удастся сохранить? (В ответе введите целое число).
+            </div>
+            <div class="input-group">
+                <input type="number" data-id="4" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 5 (было 6) -->
+        <div class="task-card" id="task-5">
+            <div class="task-header">
+                <div class="task-number">5</div>
+                <div class="task-title">Комбинаторика</div>
+            </div>
+            <div class="task-text">
+                Сколько слов длины 4, начинающихся с согласной буквы, можно составить из букв МАРТ? Каждая буква может входить в слово несколько раз. Слова не обязательно должны быть осмысленными словами русского языка.
+            </div>
+            <div class="input-group">
+                <input type="number" data-id="5" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 6 (было 8) -->
+        <div class="task-card" id="task-6">
+            <div class="task-header">
+                <div class="task-number">6</div>
+                <div class="task-title">Электронные таблицы</div>
+            </div>
+            <div class="task-text">
+                <a href="8.xls" class="file-link" download>📥 Скачать файл 8.xls</a><br>
+                В файле электронной таблицы в каждой строке содержатся пять натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:<br>
+                - разность максимального и минимального чисел не более 20;<br>
+                - произведение трех других чисел не более 250.
+            </div>
+            <div class="input-group">
+                <input type="number" data-id="6" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+                <div class="note">⚠ Ответ для проверки отсутствует в ключе</div>
+            </div>
+        </div>
+
+        <!-- Задание 7 (было 9) -->
+        <div class="task-card" id="task-7">
+            <div class="task-header">
+                <div class="task-number">7</div>
+                <div class="task-title">Исполнитель Редактор</div>
+            </div>
+            <div class="task-text">
+                Редактор получает на вход строку цифр и преобразовывает её. Редактор может выполнять две команды: заменить (v, w) и нашлось (v).<br>
+                Программа:<br>
+                НАЧАЛО<br>
+                ПОКА нашлось(333) ИЛИ нашлось(555)<br>
+                ЕСЛИ нашлось(333) ТО заменить(333, 5)<br>
+                ИНАЧЕ заменить(555, 3)<br>
+                КОНЕЦ ЕСЛИ<br>
+                КОНЕЦ ПОКА<br>
+                КОНЕЦ<br>
+                Какая строка получится в результате применения приведённой выше программы к строке, состоящей из 58 идущих подряд цифр 5?
+            </div>
+            <div class="input-group">
+                <input type="text" data-id="7" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 8 (было 10) -->
+        <div class="task-card" id="task-8">
+            <div class="task-header">
+                <div class="task-number">8</div>
+                <div class="task-title">Системы счисления</div>
+            </div>
+            <div class="task-text">
+                Операнды арифметического выражения записаны в системе счисления с основанием 14.<br>
+                126x9<sub>14</sub> + 1x568<sub>14</sub><br>
+                В записи чисел переменной x обозначена неизвестная цифра из алфавита 14-ричной системы счисления. Определите значение x, при котором значение данного арифметического выражения кратно 13. Для найденного значения x вычислите частное от деления значения арифметического выражения на 13 и укажите его в ответе в десятичной системе счисления.
+            </div>
+            <div class="input-group">
+                <input type="number" data-id="8" placeholder="Ваш ответ">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <!-- Задание 9 (было 11) -->
+        <div class="task-card" id="task-9">
+            <div class="task-header">
+                <div class="task-number">9</div>
+                <div class="task-title">Обработка числовых последовательностей</div>
+            </div>
+            <div class="task-text">
+                <a href="112.txt" class="file-link" download>📥 Скачать файл 112.txt</a><br>
+                В файле содержится последовательность целых чисел. Элементы последовательности могут принимать целые значения от 0 до 100 000 включительно. Пусть N — минимальное число в последовательности, оканчивающееся на 17. Определите количество пар элементов последовательности, в которых оба числа кратны N. В ответе запишите количество найденных пар, затем максимальную из сумм элементов таких пар.
+            </div>
+            <div class="input-group">
+                <input type="text" data-id="9" placeholder="Ваш ответ (например: 7991)">
+                <span class="feedback"></span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button type="button" onclick="checkAnswers()">✓ Проверить ответы</button>
+            <div id="result-summary"></div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Ключ ответов (перенумерован для 9 заданий)
+    const answers = {
+        1: "13",        // было задание 1
+        2: "26",        // было задание 2
+        3: "19950",     // было задание 3
+        4: "256",       // было задание 4
+        5: "64",        // было задание 6
+        6: null,        // было задание 8 (ответа нет)
+        7: "81",        // было задание 9
+        8: "55",        // было задание 10
+        9: "7991"       // было задание 11
+    };
+
+    function checkAnswers() {
+        let correctCount = 0;
+        let totalChecked = 0;
+        const inputs = document.querySelectorAll('input[data-id]');
+
+        inputs.forEach(input => {
+            const id = input.getAttribute('data-id');
+            const userVal = input.value.trim();
+            const feedbackSpan = input.parentElement.querySelector('.feedback');
+            const correctVal = answers[id];
+
+            input.classList.remove('correct', 'incorrect');
+            feedbackSpan.classList.remove('success', 'error');
+            feedbackSpan.textContent = '';
+
+            if (correctVal === null) {
+                feedbackSpan.textContent = 'Нет ключа';
+                feedbackSpan.style.color = 'var(--steel)';
+                return;
+            }
+
+            totalChecked++;
+
+            let isCorrect = false;
+            if (typeof correctVal === 'string') {
+                if (userVal.toLowerCase() === correctVal.toLowerCase()) {
+                    isCorrect = true;
+                }
+            } else {
+                if (userVal === correctVal.toString()) {
+                    isCorrect = true;
+                }
+            }
+
+            if (isCorrect) {
+                input.classList.add('correct');
+                feedbackSpan.textContent = '✓ Верно';
+                feedbackSpan.classList.add('success');
+                correctCount++;
+            } else {
+                input.classList.add('incorrect');
+                feedbackSpan.textContent = '✗ Ошибка';
+                feedbackSpan.classList.add('error');
+            }
+        });
+
+        const summary = document.getElementById('result-summary');
+        summary.textContent = `📊 Результат: ${correctCount} из ${totalChecked} заданий`;
+        if (correctCount === totalChecked) {
+            summary.style.color = 'var(--success)';
+            summary.textContent += ' • Отлично! 🎉';
+        } else {
+            summary.style.color = 'var(--navy)';
+        }
+    }
+</script>
+
+</body>
+</html>
